@@ -58,6 +58,9 @@
 
         .envelope-wrapper.opened {
             cursor: default;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
         }
 
         /* Sobre */
@@ -68,14 +71,6 @@
             background: #f4f4f4;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .envelope-wrapper.opened .envelope {
-            opacity: 0 !important;
-            transform: scale(0.8);
-            pointer-events: none;
-            visibility: hidden;
         }
 
         .envelope-flap {
@@ -88,12 +83,7 @@
             border-right: 150px solid transparent;
             border-top: 100px solid #ff6b9d;
             transform-origin: top;
-            transition: transform 0.8s ease;
             z-index: 3;
-        }
-
-        .envelope-wrapper.opened .envelope-flap {
-            transform: rotateX(180deg);
         }
 
         .envelope-body {
@@ -120,44 +110,28 @@
 
         /* Carta */
         .letter {
-            position: absolute;
-            width: 280px;
-            top: 20px;
-            left: 10px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            transition: all 0.8s ease;
-            max-height: 150px;
-            overflow: hidden;
-            opacity: 1;
-        }
-
-        .envelope-wrapper.opened .letter {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
             max-height: 85vh;
             width: 90vw;
             max-width: 650px;
             padding: 40px;
-            overflow-y: auto;
-            z-index: 9999 !important;
+            background: #ffffff;
+            border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            background: #ffffff !important;
-            opacity: 1 !important;
-        }
-
-        .letter-content {
+            overflow-y: auto;
             opacity: 0;
-            transition: opacity 0.5s ease 0.3s;
+            visibility: hidden;
+            transition: all 0.6s ease;
+            z-index: 10000;
         }
 
-        .envelope-wrapper.opened .letter-content {
-            opacity: 1 !important;
+        .letter.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .letter h1 {
@@ -271,10 +245,6 @@
             }
 
             .letter {
-                width: 230px;
-            }
-
-            .envelope-wrapper.opened .letter {
                 padding: 25px;
                 max-height: 90vh;
                 width: 95vw;
@@ -312,40 +282,40 @@
 
     <!-- Sobre y carta -->
     <div class="envelope-wrapper" id="envelopeWrapper">
-        <div class="envelope">
+        <div class="envelope" id="envelope">
             <div class="envelope-flap"></div>
             <div class="envelope-body"></div>
-            <div class="letter">
-                <div class="letter-content">
-                    <h1>🎉 ¡FELIZ CUMPLEAÑOS AMICITA! 🎉</h1>
-
-                    <p><strong>HOY ES EL DÍA EN QUE EL UNIVERSO SE DESPIERTA EN MODO SKIBIDI SIGMA</strong> porque tú cumples años y todo cuisitos lo sabe.</p>
-
-                    <p>Que este nuevo año te traiga:<br>
-                    ✨ más risas que videos de chikawa<br>
-                    ✨ menos simps del grupo<br>
-                    ✨ y ahora si salidas de verda</p>
-
-                    <p>Gracias por ser esa persona que aparece cuando uno está triste, aburrido o simplemente quiere escribir en el grupo. Haces que el grupo se sienta único.</p>
-
-                    <p>Espero que hoy comas torta como si no existiera mañana, que recibas muchos regalos, y que tu celular explote de mensajes porque la gente y los simps te quieren 💕</p>
-
-                    <p><strong>Feliz cumple, amicita, mi skibidi monkiamiguita,</strong><br>
-                    que este año esté más skibidi que nunca<br>
-                    y que sigas siendo esa Amicita legendaria que no necesita filtros para brillar ✨</p>
-
-                    <div class="signature">
-                        Con cariño,<br>
-                        Tu monkiamigo 🐵
-                    </div>
-
-                    <div class="ps">
-                        PD: Yo hago eso pero tú eres la que lo pone difícil :(
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="click-hint">👆 ¡Haz click para abrir!</div>
+    </div>
+
+    <!-- Carta separada -->
+    <div class="letter" id="letter">
+        <h1>🎉 ¡FELIZ CUMPLEAÑOS AMICITA! 🎉</h1>
+
+        <p><strong>HOY ES EL DÍA EN QUE EL UNIVERSO SE DESPIERTA EN MODO SKIBIDI SIGMA</strong> porque tú cumples años y todo cuisitos lo sabe.</p>
+
+        <p>Que este nuevo año te traiga:<br>
+        ✨ más risas que videos de chikawa<br>
+        ✨ menos simps del grupo<br>
+        ✨ y ahora si salidas de verda</p>
+
+        <p>Gracias por ser esa persona que aparece cuando uno está triste, aburrido o simplemente quiere escribir en el grupo. Haces que el grupo se sienta único.</p>
+
+        <p>Espero que hoy comas torta como si no existiera mañana, que recibas muchos regalos, y que tu celular explote de mensajes porque la gente y los simps te quieren 💕</p>
+
+        <p><strong>Feliz cumple, amicita, mi skibidi monkiamiguita,</strong><br>
+        que este año esté más skibidi que nunca<br>
+        y que sigas siendo esa Amicita legendaria que no necesita filtros para brillar ✨</p>
+
+        <div class="signature">
+            Con cariño,<br>
+            Tu monkiamigo 🐵
+        </div>
+
+        <div class="ps">
+            PD: Yo hago eso pero tú eres la que lo pone difícil :(
+        </div>
     </div>
 
     <script>
@@ -364,29 +334,26 @@
 
         // Abrir sobre
         const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const letter = document.getElementById('letter');
         let isOpened = false;
 
         envelopeWrapper.addEventListener('click', function() {
             if (!isOpened) {
                 console.log('¡Sobre clickeado! Abriendo carta...');
+
+                // Ocultar el sobre
                 this.classList.add('opened');
                 document.body.classList.add('letter-opened');
+
+                // Mostrar la carta
+                setTimeout(() => {
+                    letter.classList.add('visible');
+                }, 300);
+
                 isOpened = true;
-
-                // Forzar la visibilidad de la carta
-                const letter = this.querySelector('.letter');
-                const letterContent = this.querySelector('.letter-content');
-                if (letter) {
-                    letter.style.display = 'block';
-                    letter.style.visibility = 'visible';
-                }
-                if (letterContent) {
-                    letterContent.style.opacity = '1';
-                }
-
                 createConfetti();
 
-                // Reproducir sonido de celebración (opcional)
+                // Crear corazones
                 setTimeout(() => {
                     createHearts();
                 }, 800);
