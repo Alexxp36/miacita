@@ -72,9 +72,10 @@
         }
 
         .envelope-wrapper.opened .envelope {
-            opacity: 0;
+            opacity: 0 !important;
             transform: scale(0.8);
             pointer-events: none;
+            visibility: hidden;
         }
 
         .envelope-flap {
@@ -123,37 +124,40 @@
             width: 280px;
             top: 20px;
             left: 10px;
-            background: white;
+            background: #ffffff;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            transition: all 1s ease;
+            transition: all 0.8s ease;
             max-height: 150px;
             overflow: hidden;
+            opacity: 1;
         }
 
         .envelope-wrapper.opened .letter {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
             max-height: 85vh;
             width: 90vw;
             max-width: 650px;
             padding: 40px;
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 9999 !important;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            background: #ffffff !important;
+            opacity: 1 !important;
         }
 
         .letter-content {
             opacity: 0;
-            transition: opacity 1s ease 0.8s;
+            transition: opacity 0.5s ease 0.3s;
         }
 
         .envelope-wrapper.opened .letter-content {
-            opacity: 1;
+            opacity: 1 !important;
         }
 
         .letter h1 {
@@ -364,9 +368,22 @@
 
         envelopeWrapper.addEventListener('click', function() {
             if (!isOpened) {
+                console.log('¡Sobre clickeado! Abriendo carta...');
                 this.classList.add('opened');
                 document.body.classList.add('letter-opened');
                 isOpened = true;
+
+                // Forzar la visibilidad de la carta
+                const letter = this.querySelector('.letter');
+                const letterContent = this.querySelector('.letter-content');
+                if (letter) {
+                    letter.style.display = 'block';
+                    letter.style.visibility = 'visible';
+                }
+                if (letterContent) {
+                    letterContent.style.opacity = '1';
+                }
+
                 createConfetti();
 
                 // Reproducir sonido de celebración (opcional)
