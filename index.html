@@ -65,6 +65,13 @@
             background: #f4f4f4;
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .envelope-wrapper.opened .envelope {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
         }
 
         .envelope-flap {
@@ -124,13 +131,16 @@
         }
 
         .envelope-wrapper.opened .letter {
-            top: -500px;
-            max-height: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-height: 80vh;
             width: 90vw;
             max-width: 600px;
-            left: 50%;
-            transform: translateX(-50%);
             padding: 50px;
+            overflow-y: auto;
+            z-index: 1000;
         }
 
         .letter-content {
